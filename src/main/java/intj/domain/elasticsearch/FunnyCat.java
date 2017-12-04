@@ -1,11 +1,16 @@
 package intj.domain.elasticsearch;
 
 import intj.ElasticSearchSettings;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Document(
@@ -17,10 +22,33 @@ public class FunnyCat {
     private Integer age;
     @Field(type = FieldType.text, index = true)
     private String name;
-    @Field(type = FieldType.Nested)
+    @Field(type = FieldType.Object)
     private CatDetails catDetails;
     @Id
     private String id;
+    @Field(type = FieldType.Date)
+    private Date lastModified;
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    //todo: ANY other way to make it non-public?
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    @Field(type = FieldType.Nested)
+    private final List<Feature> features = new ArrayList<>();
+
+    public void addFeature(Feature feature){
+        this.features.add(feature);
+    }
+
 
     public CatDetails getCatDetails() {
         return catDetails;
@@ -31,6 +59,8 @@ public class FunnyCat {
     }
 
     public FunnyCat(String name, Integer age) {
+
+        this.lastModified = Date.from(Instant.now());
         this.name = name;
         this.age = age;
         this.id = Integer.valueOf(ID_GENERATOR.getAndIncrement()).toString();

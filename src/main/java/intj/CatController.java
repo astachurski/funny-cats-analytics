@@ -1,6 +1,7 @@
 package intj;
 
 import intj.domain.elasticsearch.CatDetails;
+import intj.domain.elasticsearch.Feature;
 import intj.domain.elasticsearch.FunnyCat;
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
@@ -32,6 +33,9 @@ public class CatController
         FunnyCat funnyCat = new FunnyCat(name, Integer.valueOf(age));
 
         CatDetails catDetails = new CatDetails(funnyCat, "jumping high and falling!");
+
+        funnyCat.addFeature(new Feature("this is feature1"));
+        funnyCat.addFeature(new Feature("anothe rfeature"));
 
         funnyCat.addCatDetails(catDetails);
 
