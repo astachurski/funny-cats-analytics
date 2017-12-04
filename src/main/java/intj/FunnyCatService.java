@@ -29,8 +29,6 @@ public class FunnyCatService {
         template.index(indexQuery);
         template.refresh(FunnyCat.class);
 
-        //funnyCatRepository.index(funnyCat);
-        //funnyCatRepository.save(funnyCat);
 
     }
 }

@@ -1,6 +1,6 @@
 package intj;
 
-import intj.domain.elasticsearch.CatFeature;
+import intj.domain.elasticsearch.CatDetails;
 import intj.domain.elasticsearch.FunnyCat;
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
@@ -31,11 +31,9 @@ public class CatController
                        @PathVariable("age") String age){
         FunnyCat funnyCat = new FunnyCat(name, Integer.valueOf(age));
 
-        CatFeature catFeature = new CatFeature(funnyCat, "jumping high and falling!");
+        CatDetails catDetails = new CatDetails(funnyCat, "jumping high and falling!");
 
-       // catFeatureRepository.save(catFeature);
-
-        funnyCat.addCatFeature(catFeature);
+        funnyCat.addCatDetails(catDetails);
 
         funnyCatService.addFunnyCat(funnyCat);
         return "success!";

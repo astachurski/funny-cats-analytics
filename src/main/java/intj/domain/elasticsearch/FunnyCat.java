@@ -4,39 +4,31 @@ import intj.ElasticSearchSettings;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Document(
         indexName = ElasticSearchSettings.indexName,
         type = ElasticSearchSettings.type, shards = 1, replicas = 0, refreshInterval = "-1")
 public class FunnyCat {
-
     private static AtomicInteger ID_GENERATOR = new AtomicInteger(1);
-
+    @Field(type = FieldType.Integer, index = true)
+    private Integer age;
     @Field(type = FieldType.text, index = true)
     private String name;
-
-    public CatFeature getCatFeature() {
-        return catFeature;
-    }
-
-    public void setCatFeature(CatFeature catFeature) {
-        this.catFeature = catFeature;
-    }
-
-    private Integer age;
-
     @Field(type = FieldType.Nested)
-    private CatFeature catFeature;
-
+    private CatDetails catDetails;
     @Id
     private String id;
+
+    public CatDetails getCatDetails() {
+        return catDetails;
+    }
+
+    public void setCatDetails(CatDetails catDetails) {
+        this.catDetails = catDetails;
+    }
 
     public FunnyCat(String name, Integer age) {
         this.name = name;
@@ -48,8 +40,8 @@ public class FunnyCat {
 
     }
 
-    public void addCatFeature(CatFeature catFeature){
-        this.catFeature = catFeature;
+    public void addCatDetails(CatDetails catDetails){
+        this.catDetails = catDetails;
     }
 
     public String getName() {

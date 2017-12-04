@@ -13,34 +13,36 @@ import java.util.concurrent.atomic.AtomicInteger;
         indexName = ElasticSearchSettings.indexName,
         type = ElasticSearchSettings.type_child,
         shards = 1, replicas = 0, refreshInterval = "-1")
-public class CatFeature {
+public class CatDetails {
     private static AtomicInteger ID_GENERATOR = new AtomicInteger(1);
 
     @Id
     private String id;
-
-    public CatFeature(FunnyCat parent, String featureName){
-        this.id = Integer.valueOf(ID_GENERATOR.getAndIncrement()).toString();
-        this.catId = parent.getId();
-        this.featureName = featureName;
-    }
-
     @Field(type = FieldType.text, store = true)
     private String catId;
-
-    public CatFeature(){
-
-    }
-
-    public String getFeatureName() {
-        return featureName;
-    }
-
-    public void setFeatureName(FunnyCat parent) {
-
-        this.featureName = featureName;
-    }
-
     @Field(type = FieldType.text)
-    private String featureName;
+    private String description;
+
+
+    public CatDetails(FunnyCat parent, String description){
+        this.id = Integer.valueOf(ID_GENERATOR.getAndIncrement()).toString();
+        this.catId = parent.getId();
+        this.description = description;
+    }
+
+
+    public CatDetails(){
+
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(FunnyCat parent) {
+
+        this.description = description;
+    }
+
+
 }
