@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
         type = ElasticSearchSettings.type_feature,
         shards = 1, replicas = 0, refreshInterval = "-1")
 
+//my comment
 public class Feature {
     private static AtomicInteger ID_GENERATOR = new AtomicInteger(1);
 
