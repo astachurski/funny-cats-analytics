@@ -30,14 +30,17 @@ public class CatController
     @ResponseBody
     public String test(@PathVariable("name") String name,
                        @PathVariable("age") String age){
-        FunnyCat funnyCat = new FunnyCat(name, Integer.valueOf(age));
 
-        CatDetails catDetails = new CatDetails(funnyCat, "jumping high and falling!");
+        CatDetails catDetails = CatDetails.builder()
+                .description("jumping high and falling").build();
+        catDetails.resetId();
 
+        FunnyCat funnyCat = FunnyCat.builder().age(Integer.valueOf(age))
+                .catDetails(catDetails)
+                .name(name).build();
         funnyCat.addFeature(new Feature("this is feature1"));
         funnyCat.addFeature(new Feature("anothe rfeature"));
-
-        funnyCat.addCatDetails(catDetails);
+        funnyCat.resetId();
 
         funnyCatService.addFunnyCat(funnyCat);
         return "success!";
